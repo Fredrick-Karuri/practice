@@ -4,36 +4,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from enum import Enum
 
-from apis.document_management.models import User
-
-# ============================================
-# ENUMS
-# ============================================
-
-class ItemType(str, Enum):
-    FILE = "file"
-    FOLDER = "folder"
-
-class PermissionType(str, Enum):
-    READ = "read"
-    WRITE = "write"
-    ADMIN = "admin"
-
-class AuditAction(str, Enum):
-    CREATE = "create"
-    READ = "read"
-    UPDATE = "update"
-    DELETE = "delete"
-    RESTORE = "restore"
-    SHARE = "share"
-    UNSHARE = "unshare"
-    DOWNLOAD = "download"
-    UPLOAD = "upload"
-    RENAME = "rename"
-    MOVE = "move"
-    PERMISSION_GRANT = "permission_grant"
-    PERMISSION_REVOKE = "permission_revoke"
-
+from apis.document_management.models import AuditAction, AuditLog, FileVersion, Item, ItemType, PermissionType, User
 
 # ============================================
 # REQUEST/RESPONSE MODELS
@@ -43,31 +14,13 @@ class UserResponse(User):
     """User profile data"""
     pass
 
+class UserUpdateRequest(BaseModel):
+    display_name: Optional[str]
+    email: Optional[str]
 
-class ItemResponse(BaseModel):
+class ItemResponse(Item):
     """File or folder with metadata"""
-    id: int
-    item_name: str
-    type: ItemType
-    owner_id: int
-    owner: Optional[UserResponse]  # Nested for UI display
-    parent_id: Optional[int]
-    current_version_id: Optional[int]
-    full_path: Optional[str]
-    path_depth: int
-    is_starred: bool
-    last_accessed_at: Optional[datetime]
-    deleted_at: Optional[datetime]
-    created_at: datetime
-    updated_at: datetime
-    # Computed fields
-    size_bytes: Optional[int]  # From current version
-    mime_type: Optional[str]
-    can_edit: bool  # Based on current user's permissions
-    model_config = ConfigDict(
-        from_attributes=True
-    )
-
+    pass
 
 
 class ItemCreateRequest(BaseModel):
@@ -106,19 +59,10 @@ class FileUploadInitiateResponse(BaseModel):
     message: str
 
 
-class FileVersionResponse(BaseModel):
+class FileVersionResponse(FileVersion):
     """Version history entry"""
-    id: int
-    item_id: int
-    version_number: int
-    size_bytes: int
-    mime_type: Optional[str]
-    created_by: int
-    created_by_user: Optional[UserResponse]
-    created_at: datetime
-    model_config = ConfigDict(
-        from_attributes= True
-    )
+    pass
+
 
 class PermissionResponse(BaseModel):
     """Permission entry"""
@@ -196,20 +140,10 @@ class SearchRequest(BaseModel):
     page_size: int = Field(50, ge=1, le=100)
 
 
-class AuditLogEntryResponse(BaseModel):
+class AuditLogEntryResponse(AuditLog):
     """Audit log entry"""
-    id: int
-    item_id: Optional[int]
-    user_id: Optional[int]
-    user: Optional[UserResponse]
-    action: AuditAction
-    metadata: Optional[dict]
-    ip_address: Optional[str]
-    created_at: datetime
+    pass
 
-    model_config = ConfigDict(
-        from_attributes= True
-    )
 
 
 class PaginatedResponse(BaseModel):

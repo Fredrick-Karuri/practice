@@ -103,4 +103,118 @@ def moveZeroes(self, nums: List[int]) -> None:
 
 
 
-    
+
+def threeSum(self, nums: List[int]) -> List[List[int]]:
+    """
+    THE PROBLEM: find all unique triplets that add to 0
+
+    PATTERN: sort + two pointer 
+
+    INSIGHT: fix one number, then use two pointers to find pairs that sum to its negative
+
+    THE PLAN: 
+    1.sort the array
+    2.loop through each number as the "first" number
+    3.for each first number, use two pointers(left and right) to find pairs
+    4.skip duplicates to avoid duplicate triplets
+    5.if sum == 0 , add triplet and move both pointers
+    6.if sum < 0 ,move left pointer right (need larger sum)
+    7.if sum > 0, move right pointer left (need smaller sum)
+
+    Example: [-1,0,1,2,-1,-4] → sorted: [-4,-1,-1,0,1,2]
+    - Fix -1: find two numbers that sum to 1 → found: [-1,0,1]
+
+    """
+    nums.sort() #sort first
+    result = []
+    n = len(nums)
+
+    for i in range(n-2):
+        #skip duplicate first numbers
+        if i > 0 and nums[i] == nums[i-1]:
+            continue
+        
+        #Two pointers for remaining array
+        left =i+1
+        right= n-1
+        target = -nums[i] # we need two numbers that sum to this
+
+        while left < right:
+            current_sum = nums[left] +nums[right]
+
+            if current_sum == target:
+                result.append([nums[i],nums[left],nums[right]])
+
+                #skip duplicates for left pointer
+                while left < right and nums[left] == nums[left +1]:
+                    left+=1
+                # skip duplicates for right pointer
+                while left < right and nums[right] == nums[right-1]:
+                    right-=1
+                
+                left +=1
+                right -=1
+            elif current_sum <target:
+                left +=1 #need larger sum
+            else:
+                right -=1 # need smaller sum
+    return result    
+
+
+def characterReplacement(self, s: str, k: int) -> int:
+    """
+    THE PROBLEM: replace at most k characters to form longest repeating substring
+
+    PATTERN = sliding window
+
+    INSIGHT: window is valid if : window_size - most_frequent_char <= k
+    (we can replace all non frequent chars to make them all the same)
+
+    THE PLAN:
+    1.use two pointers (left, right) for sliding window
+    2.track character counts in current window
+    3.expand window by moving right pointer
+    4.if window invalid(replacement needed > k), shrink from left
+    5.track maximum valid window size seen
+
+    Example: s = "AABABBA", k = 1
+    - Window "AAB": size=3, max_freq=2, replacements=1 ✓
+    - Window "AABA": size=4, max_freq=3, replacements=1 ✓
+
+    """
+    char_count = {}
+    left = 0
+    max_length = 0
+    max_freq = 0 #most frequent character count in current window
+    n=len(s)
+
+    for right in range(n):
+        #add right characters to the window
+        char_count[s[right]] = char_count.get(s[right],0) +1
+        max_freq = max(max_freq,char_count[s[right]])
+
+        #check if window is valid
+        window_size = right - left+1
+        replacements_needed = window_size - max_freq
+
+        #if invalid, shrink window from left
+        if replacements_needed > k :
+            char_count[s[left]] -=1
+            left+=1
+        
+        #update max length (window is now valid)
+        max_length = max(max_length, right-left+1)
+    return max_length
+
+
+
+
+
+        
+
+
+
+
+        
+
+            
