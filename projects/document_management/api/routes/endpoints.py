@@ -7,12 +7,18 @@ from fastapi import (
     File
 )
 from sqlalchemy.orm import Session
-from .database import get_db
-from .models import AuditLog, BlobStorage, FileVersion, Item, User
-from .schemas import FileUploadInitiateResponse, ItemType, UserResponse,ItemResponse, FileUploadInitiateRequest, UserUpdateRequest
-from .auth import get_current_user
-from .storage import generate_presigned_upload_url
-from .cache import invalidate_cache
+from ...database import get_db
+from ...models import AuditLog, BlobStorage, FileVersion, Item, User
+from ..schemas import (
+    FileUploadInitiateResponse, 
+    ItemType, UserResponse,
+    ItemResponse, 
+    FileUploadInitiateRequest, 
+    UserUpdateRequest
+)
+from ...auth import get_current_user
+from ...storage import generate_presigned_upload_url
+from ...cache import invalidate_cache
 
 #====================
 #  ROUTERS

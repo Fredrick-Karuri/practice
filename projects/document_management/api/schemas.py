@@ -4,7 +4,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from enum import Enum
 
-from apis.document_management.models import AuditAction, AuditLog, FileVersion, Item, ItemType, PermissionType, User
+from projects.document_management.models import AuditAction, AuditLog, FileVersion, Item, ItemType, PermissionType, User
 
 # ============================================
 # REQUEST/RESPONSE MODELS
