@@ -68,3 +68,6 @@ React uses an array (or linked list in Fiber architecture) indexed by call order
 
 In 2 sentences, explain when you'd use Context vs Redux/Zustand.
 Use Context for infrequent updates with few consumers, like theme or authentication state. Choose Redux or Zustand when you have frequent updates affecting many components, since Context re-renders all consumers on every change while state management libraries use selectors to prevent unnecessary re-renders.
+
+In 2 sentences explain what react.memo is:
+It is a higher order component(HOC) in react that prevents a component from re-rendering if its props haven't changed . Its mainly used to optimize performance by memoizing functional components, avoiding unnecessary renders in large/complex UIs.
