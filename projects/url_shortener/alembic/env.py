@@ -7,7 +7,7 @@ import asyncio
 import os
 
 # Import your models
-from models import Base
+from projects.url_shortener.models import Base
 
 config = context.config
 
