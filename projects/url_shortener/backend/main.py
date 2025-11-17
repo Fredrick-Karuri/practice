@@ -2,32 +2,28 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import engine
-import redis.asyncio as redis
-import os
+from redis_client import init_redis,close_redis
+
 
 from backend.models import Base
 
-# global redis client
-redis_client = None
+from api.endpoints import router
+
+
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
     # startup
-    global redis_client
-
     # create tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
-    redis_client = await redis.from_url(
-        os.getenv("REDIS_URL","redis://localhost:6379"),
-        encoding="utf-8",
-        decode_responses=True
-    )
+    # initialize redis
+    await init_redis()
     yield
 
     # shutdown
-    await redis_client.close()
+    await close_redis()
     
 app = FastAPI(title="Url Shortener", lifespan=lifespan)
 
@@ -40,8 +36,9 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-app.get("/health")
+app.include_router(router)
+
+
+@app.get("/health")
 async def health():
     return {"status":"healthy"}
-
-

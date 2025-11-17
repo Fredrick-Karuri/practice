@@ -1,5 +1,4 @@
-from main import app ,redis_client
-from fastapi import Request,Depends,HTTPException
+from fastapi import Request,Depends,HTTPException,APIRouter
 from fastapi.responses import RedirectResponse
 from backend.api.models import ShortenRequest, ShortenResponse,StatsResponse
 from backend.database import get_db,engine
@@ -15,8 +14,14 @@ from datetime import datetime
 
 import asyncio
 
+from redis_client import get_redis
+from redis.asyncio import Redis
 
-@app.post("/shorten",response_model=ShortenResponse,status_code=201)
+router = APIRouter()
+
+redis_client:Redis = get_redis()
+
+@router.post("/shorten",response_model=ShortenResponse,status_code=201)
 async def shorten_url(req:ShortenRequest,request:Request,db:AsyncSession=Depends(get_db)):
 
     """
@@ -122,7 +127,7 @@ async def get_url_mapping_if_exists(db:AsyncSession, stmt):
     existing = result.scalar_one_or_none()
     return existing
 
-@app.get("/{short_code}")
+@router.get("/{short_code}")
 async def redirect_url(short_code:str,db:AsyncSession=Depends(get_db)):
     # check cache first
     """
@@ -188,7 +193,7 @@ async def get_cached_url(short_code):
     return cached_url
 
 
-@app.get("/stats/{short_code}", response_model=StatsResponse)
+@router.get("/stats/{short_code}", response_model=StatsResponse)
 async def get_stats(short_code:str, db:AsyncSession=Depends(get_db)):
     row = await get_url_stats(short_code, db)
 
