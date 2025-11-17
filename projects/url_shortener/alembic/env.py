@@ -5,9 +5,11 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 import asyncio
 import os
+from dotenv import load_dotenv
+# Import our models
+from backend.models import Base
 
-# Import your models
-from projects.url_shortener.models import Base
+load_dotenv()
 
 config = context.config
 
@@ -40,6 +42,8 @@ def do_run_migrations(connection: Connection) -> None:
 async def run_async_migrations() -> None:
     configuration = config.get_section(config.config_ini_section)
     configuration["sqlalchemy.url"] = os.getenv("DATABASE_URL", "")
+
+    
     
     connectable = async_engine_from_config(
         configuration,

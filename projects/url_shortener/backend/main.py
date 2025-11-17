@@ -1,17 +1,11 @@
-from fastapi import FastAPI,Request,Depends,HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from projects.url_shortener.backend.api.models import ShortenRequest, ShortenResponse
-from projects.url_shortener.backend.database import get_db,engine
+from database import engine
 import redis.asyncio as redis
 import os
 
-from projects.url_shortener.backend.utils import BASE62, id_to_base
-from projects.url_shortener.models import Base,UrlMapping,UrlStats
-
-
-
-
+from backend.models import Base
 
 # global redis client
 redis_client = None

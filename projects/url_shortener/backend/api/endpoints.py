@@ -6,7 +6,7 @@ from backend.database import get_db,engine
 import os
 
 from backend.utils import BASE62, id_to_base
-from projects.url_shortener.models import UrlMapping,UrlStats
+from backend.models import UrlMapping,UrlStats
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select

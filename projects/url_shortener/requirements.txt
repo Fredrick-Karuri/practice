@@ -1,7 +1,8 @@
 fastapi
 uvicorn
 asyncpg
+greenlet
 redis
 python-dotenv
-alembic
 sqlalchemy[asyncio]
+alembic
