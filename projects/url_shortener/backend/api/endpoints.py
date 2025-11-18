@@ -15,11 +15,9 @@ from datetime import datetime
 import asyncio
 
 from redis_client import get_redis
-from redis.asyncio import Redis
 
 router = APIRouter()
 
-redis_client:Redis = get_redis()
 
 @router.post("/shorten",response_model=ShortenResponse,status_code=201)
 async def shorten_url(req:ShortenRequest,request:Request,db:AsyncSession=Depends(get_db)):
@@ -41,9 +39,10 @@ async def shorten_url(req:ShortenRequest,request:Request,db:AsyncSession=Depends
     long_url = str(req.long_url)
 
     # check if long_url already exists
-    stmt = select(UrlMapping.long_url == long_url)
+    # stmt = select(UrlMapping.long_url == long_url)
+    stmt = select(UrlMapping).where(UrlMapping.long_url == long_url)
 
-    existing = await get_url_mapping_if_exists(db, stmt)
+    existing:UrlMapping = await get_url_mapping_if_exists(db, stmt)
 
     if existing:
         short_code= existing.short_code
@@ -75,10 +74,11 @@ async def shorten_url(req:ShortenRequest,request:Request,db:AsyncSession=Depends
         short_code=short_code
     )
 
-async def save_url_mapping(db):
+async def save_url_mapping(db:AsyncSession):
     await db.commit()
 
 async def cache_url_mapping(long_url, short_code):
+    redis_client = await get_redis()
     await redis_client.setex(f"url:{short_code}",300,long_url)
 
 def initialize_url_stats(db:AsyncSession, short_code):
@@ -177,6 +177,7 @@ async def track_click(short_code:str):
             await session.commit()
 
 async def cache_long_url(short_code, long_url):
+    redis_client = await get_redis()
     await redis_client.setex(f"url:{short_code}",300,long_url)
 
 async def get_url_mapping(short_code, db:AsyncSession):
@@ -189,6 +190,7 @@ async def get_url_mapping(short_code, db:AsyncSession):
     return url_mapping
 
 async def get_cached_url(short_code):
+    redis_client = await get_redis()
     cached_url = await redis_client.get(f"url:{short_code}")
     return cached_url
 
