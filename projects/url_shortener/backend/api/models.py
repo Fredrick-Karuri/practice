@@ -6,6 +6,13 @@ class ShortenRequest(BaseModel):
     custom_code:str | None = None
 
 class ShortenResponse(BaseModel):
+    """
+    Response model for shortened URLs.
+
+    Attributes:
+    short_code (str): Short code for the shortened URL.
+    short_url (str): Shortened URL.
+    """
     short_code:str
     short_url:str
 

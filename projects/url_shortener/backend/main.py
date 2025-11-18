@@ -4,7 +4,6 @@ from contextlib import asynccontextmanager
 from database import engine
 from redis_client import init_redis,close_redis
 
-
 from backend.models import Base
 
 from api.endpoints import router
