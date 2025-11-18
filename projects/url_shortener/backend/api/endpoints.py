@@ -222,3 +222,7 @@ async def get_url_stats(short_code, db:AsyncSession):
     result = await db.execute(stmt)
     row = result.first()
     return row
+
+@router.get("/health")
+async def health():
+    return {"status":"healthy"}
