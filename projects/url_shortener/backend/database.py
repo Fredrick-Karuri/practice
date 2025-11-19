@@ -16,7 +16,4 @@ AsyncSessionLocal = sessionmaker(
 async def get_db ():
     async with AsyncSessionLocal() as session:
         yield session
-
-# convert postgreSQL:// to postgreSQL + asyncpg://
-# if DATABASE_URL and DATABASE_URL.startswith("postgresql://"):
-#     DATABASE_URL = DATABASE_URL.replace("postgresql://","postgresql+asyncpg://",1)        
+      
