@@ -11,7 +11,6 @@ interface StatsSectionProps {
 
 export const StatsSection: React.FC<StatsSectionProps> = ({
   // props
-  error,
   setError,
 }) => {
   // states
