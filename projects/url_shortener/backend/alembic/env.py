@@ -7,7 +7,7 @@ import asyncio
 import os
 from dotenv import load_dotenv
 # Import our models
-from backend.models import Base
+from models import Base
 
 load_dotenv()
 
