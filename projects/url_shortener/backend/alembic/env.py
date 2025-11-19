@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 # Import our models
 from models.database import Base
+from utils.postgres_conversion import convert_postgres_sync_to_async
 
 load_dotenv()
 
@@ -41,9 +42,10 @@ def do_run_migrations(connection: Connection) -> None:
 
 async def run_async_migrations() -> None:
     configuration = config.get_section(config.config_ini_section)
-    configuration["sqlalchemy.url"] = os.getenv("DATABASE_URL", "")
 
-    
+    DATABASE_URL = convert_postgres_sync_to_async(os.getenv("DATABASE_URL", ""))
+
+    configuration["sqlalchemy.url"] = DATABASE_URL
     
     connectable = async_engine_from_config(
         configuration,

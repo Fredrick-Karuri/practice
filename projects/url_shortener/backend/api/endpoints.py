@@ -5,7 +5,7 @@ from database import get_db,engine
 import os
 
 from models.database import UrlMapping,UrlStats
-from utils import BASE62, id_to_base
+from utils.id_to_base import BASE62, id_to_base
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
