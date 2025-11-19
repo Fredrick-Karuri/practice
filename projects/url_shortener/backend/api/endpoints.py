@@ -1,11 +1,11 @@
 from fastapi import Request,Depends,HTTPException,APIRouter
 from fastapi.responses import RedirectResponse
-from backend.api.models import ShortenRequest, ShortenResponse,StatsResponse
-from backend.database import get_db,engine
+from api.models import ShortenRequest, ShortenResponse,StatsResponse
+from database import get_db,engine
 import os
 
-from backend.utils import BASE62, id_to_base
-from backend.models import UrlMapping,UrlStats
+from models.database import UrlMapping,UrlStats
+from utils import BASE62, id_to_base
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
