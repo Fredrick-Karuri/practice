@@ -1,5 +1,5 @@
 
-BASE62= "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+BASE62= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 def id_to_base(id:int):
     """
     Convert an integer id to a base 62 string.
