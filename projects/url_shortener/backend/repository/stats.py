@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
-from models.database import UrlStats,UrlMapping
+from ..models.database import UrlStats,UrlMapping
 from sqlalchemy import select
 
 class StatsRepository:

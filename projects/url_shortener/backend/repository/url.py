@@ -3,7 +3,7 @@ from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from models.database import UrlMapping
+from ..models.database import UrlMapping
 
 class UrlRepository:
     def __init__(self,db:AsyncSession):

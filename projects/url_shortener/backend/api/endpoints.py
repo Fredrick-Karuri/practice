@@ -5,12 +5,8 @@ from database import get_db,engine
 import os
 
 from models.model import UrlMapping,UrlStats
-
 from repository.stats import StatsRepository
-
 from services.url import UrlShortenerService
-
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import asyncio
