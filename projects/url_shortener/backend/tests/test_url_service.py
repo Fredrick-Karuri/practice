@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock, AsyncMock
-from ..services.url import UrlShortenerService
-from ..models.model import UrlMapping
+from backend.services.url import UrlShortenerService
+from backend.models.model import UrlMapping
 
 @pytest.fixture
 def mock_repos():
@@ -38,3 +38,17 @@ async def test_shorten_url_new(service,mock_repos):
     url_repo.create.assert_called_once()
     stats_repo.create.assert_called_once()
     cache.set_url.assert_called_once()
+
+@pytest.mark.asyncio
+async def test_shorten_url_existing(service,mock_repos):
+    url_repo,stats_repo,cache =mock_repos
+    existing = Mock()
+    existing.short_code="abc123"
+    url_repo.get_by_long_url = AsyncMock(return_value= existing)
+
+    short_code = await service.shorten_url("https://example.com")
+
+    assert short_code == "abc123"
+    url_repo.create.assert_not_called()
+
+

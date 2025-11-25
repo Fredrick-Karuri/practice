@@ -3,7 +3,7 @@ from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from ..models.database import UrlMapping
+from models.database import UrlMapping
 
 class UrlRepository:
     def __init__(self,db:AsyncSession):
@@ -14,7 +14,7 @@ class UrlRepository:
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def get_by_shortcode(self,short_code:str)->Optional[UrlMapping]:
+    async def get_by_short_code(self,short_code:str)->Optional[UrlMapping]:
         stmt = select(UrlMapping).where(UrlMapping.short_code == short_code)
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none()

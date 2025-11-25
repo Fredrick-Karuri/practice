@@ -1,10 +1,10 @@
 from fastapi import HTTPException
-from ..repository.url import UrlRepository
-from ..repository.stats import StatsRepository
-from .cache import CacheService
+from repository.url import UrlRepository
+from repository.stats import StatsRepository
+from services.cache import CacheService
 from typing import Optional
-from ..utils.id_to_base import BASE62, id_to_base
-from ..models.model import UrlMapping
+from utils.id_to_base import BASE62, id_to_base
+from models.model import UrlMapping
 
 class UrlShortenerService:
     def __init__(
