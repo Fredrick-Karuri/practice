@@ -34,4 +34,4 @@ class UrlRepository:
         return result.scalar_one_or_none() is not None
 
     async def commit(self):
-        await self.db.commit()
+        await self.db.commit()   
