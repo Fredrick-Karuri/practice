@@ -46,18 +46,18 @@ export const StatsSection: React.FC<StatsSectionProps> = ({
       </h2>
 
       <div className="space-y-4">
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             value={statsCode}
             onChange={(e) => setStatsCode(e.target.value)}
             placeholder="Enter short code (e.g., aB3x9K)"
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+            className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
           />
           <button
             onClick={fetchStats}
             disabled={loadingStats || !statsCode}
-            className="bg-indigo-600 text-white py-3 px-8 rounded-lg font-semibold hover:bg-indigo-700 transition disabled:bg-gray-400"
+            className="bg-indigo-600 text-white py-3 px-4 sm:px-8 rounded-lg font-semibold hover:bg-indigo-700 transition disabled:bg-gray-400 w-full sm:w-auto"
           >
             {loadingStats ? "Loading..." : "Get Stats"}
           </button>
