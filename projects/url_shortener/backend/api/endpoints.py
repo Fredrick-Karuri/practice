@@ -10,7 +10,7 @@ from services.url import UrlShortenerService
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import asyncio
-from dependencies import get_url_service
+from api.dependencies import get_url_service
 
 router = APIRouter()
 
