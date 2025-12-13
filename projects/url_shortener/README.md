@@ -2,7 +2,7 @@
 
 A production-ready URL shortening service with analytics, caching, and a modern React frontend.
 
-**Live Demo:** [url-shortener-us.vercel.app](https://url-shortener-us.vercel.app/)
+**Live Demo:** [url-shortener-app](https://url-shortener-us.vercel.app/)
 
 
 ## Architecture Overview

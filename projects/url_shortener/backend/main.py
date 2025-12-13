@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from database import engine
+from database import get_engine
 from redis_client import init_redis,close_redis
 
 from models.database import Base
@@ -14,6 +14,7 @@ from api.endpoints import router
 async def lifespan(app:FastAPI):
     # startup
     # create tables
+    engine = get_engine()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
