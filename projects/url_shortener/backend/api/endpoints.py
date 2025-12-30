@@ -1,7 +1,7 @@
 from fastapi import Request,Depends,HTTPException,APIRouter
 from fastapi.responses import RedirectResponse
 from api.models import ShortenRequest, ShortenResponse,StatsResponse
-from database import get_db,engine
+from database import get_db, get_engine
 import os
 
 from models.model import UrlMapping,UrlStats
@@ -13,7 +13,7 @@ import asyncio
 from api.dependencies import get_url_service
 
 router = APIRouter()
-
+engine = get_engine()
 @router.post("/shorten",response_model=ShortenResponse,status_code=201)
 async def shorten_url(
     req:ShortenRequest,
@@ -49,6 +49,7 @@ async def redirect_url(
     Also schedules an asynchronous task to increment the click count for the shortened URL.
 
     """
+   
 
     long_url = await service.resolve_short_code(short_code)
 
@@ -58,7 +59,8 @@ async def redirect_url(
     redirect_response = RedirectResponse(url=long_url,status_code=302)
     return redirect_response
 
-async def track_click_background(self,short_code:str):
+
+async def track_click_background(short_code:str):
     async with AsyncSession(engine) as session:
         stats_repo = StatsRepository(session)
         await stats_repo.increment_click(short_code)

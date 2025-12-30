@@ -7,29 +7,75 @@ LeetCode solutions organized by patterns and concepts.
 ```
 ds_algorithms/
 ├── README.md
-├── arrays/
-│   ├── two_pointers/
+
+├── patterns/
 │   ├── sliding_window/
-│   └── prefix_sum/
-├── strings/
-├── linked_lists/
-├── trees/
-│   ├── binary_trees/
-│   ├── bst/
-│   └── trie/
-├── graphs/
-│   ├── bfs/
+│   │   ├── longest_substring_no_repeat.md
+│   │   ├── min_window_substring.md
+│   │   └── README.md
+│   │
+│   ├── two_pointers/
+│   │   ├── two_sum_sorted.md
+│   │   └── README.md
+│   │
+│   ├── prefix_sum/
+│   │   ├── subarray_sum_equals_k.md
+│   │   ├── product_of_array_except_self.md
+│   │   └── README.md
+│   │
+│   ├── frequency_grouping/
+│   │   ├── group_anagrams.md
+│   │   └── README.md
+│   │
+│   ├── complement_lookup/
+│   │   ├── two_sum.md
+│   │   └── README.md
+│   │
+│   ├── binary_search/
+│   │   ├── binary_search_on_answer.md
+│   │   └── README.md
+│   │
 │   ├── dfs/
-│   └── shortest_path/
+│   │   ├── tree_traversals.md
+│   │   └── README.md
+│   │
+│   ├── bfs/
+│   │   ├── shortest_path_unweighted.md
+│   │   └── README.md
+│   │
+│   ├── backtracking/
+│   │   ├── subsets.md
+│   │   ├── permutations.md
+│   │   └── README.md
+│   │
+│   ├── greedy/
+│   │   ├── interval_scheduling.md
+│   │   └── README.md
+│   │
+│   └── monotonic_stack/
+│       ├── next_greater_element.md
+│       └── README.md
+
 ├── dynamic_programming/
-│   ├── 1d_dp/
-│   ├── 2d_dp/
+│   ├── 1d/
+│   │   ├── house_robber.md
+│   │   └── README.md
+│   │
+│   ├── 2d/
+│   │   ├── unique_paths.md
+│   │   └── README.md
+│   │
 │   └── knapsack/
-└── patterns/
-    ├── two_pointers.md
-    ├── sliding_window.md
-    ├── binary_search.md
-    └── backtracking.md
+│       ├── subset_sum.md
+│       └── README.md
+
+└── reference/
+    ├── arrays.md
+    ├── strings.md
+    ├── linked_lists.md
+    ├── trees.md
+    └── graphs.md
+
 ```
 
 ## Problem Template
