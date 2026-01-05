@@ -1,7 +1,7 @@
 
 class Solution:
     """
-    THE PROBLEM: Find minimum coins needed to make amount
+    THE PROBLEM: Find minimum coins needed to make amount  - problem 322
 
     PATTERN: Dynamic Programming (Bottom Up)
 
