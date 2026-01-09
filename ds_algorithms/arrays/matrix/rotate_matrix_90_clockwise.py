@@ -1,8 +1,5 @@
-from typing import List
-
-
 class Solution:
-    def rotate(self, matrix: List[List[int]]) -> None:
+    def rotate(self, matrix: list[list[int]]) -> None:
         """
         THE PROBLEM:rotate 2D matrix by 90 degrees clockwise in-place
         PATTERN: Matrix manipulation(transpose + reverse)
