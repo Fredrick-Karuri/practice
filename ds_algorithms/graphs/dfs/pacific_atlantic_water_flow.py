@@ -28,20 +28,20 @@ class Solution:
         
         # Explore from Pacific ocean borders (top and left edges)
         for col in range(num_cols):
-            self.explore_from_ocean(0, col, cells_reaching_pacific, num_rows, num_cols, heights)
+            self._explore_from_ocean(0, col, cells_reaching_pacific, num_rows, num_cols, heights)
         for row in range(num_rows):
-            self.explore_from_ocean(row, 0, cells_reaching_pacific, num_rows, num_cols, heights)
+            self._explore_from_ocean(row, 0, cells_reaching_pacific, num_rows, num_cols, heights)
         
         # Explore from Atlantic ocean borders (bottom and right edges)
         for col in range(num_cols):
-            self.explore_from_ocean(num_rows - 1, col, cells_reaching_atlantic, num_rows, num_cols, heights)
+            self._explore_from_ocean(num_rows - 1, col, cells_reaching_atlantic, num_rows, num_cols, heights)
         for row in range(num_rows):
-            self.explore_from_ocean(row, num_cols - 1, cells_reaching_atlantic, num_rows, num_cols, heights)
+            self._explore_from_ocean(row, num_cols - 1, cells_reaching_atlantic, num_rows, num_cols, heights)
         
         cells_reaching_both_oceans = cells_reaching_pacific & cells_reaching_atlantic
         return list(cells_reaching_both_oceans)
     
-    def explore_from_ocean(
+    def _explore_from_ocean(
         self, 
         row:int, 
         col:int, 
@@ -66,4 +66,4 @@ class Solution:
             can_flow_upward = heights[neighbor_row][neighbor_col] >= heights[row][col]
             
             if is_within_bounds and is_unvisited and can_flow_upward:
-                self.explore_from_ocean(neighbor_row, neighbor_col, cells_reachable_from_ocean, num_rows, num_cols, heights)
+                self._explore_from_ocean(neighbor_row, neighbor_col, cells_reachable_from_ocean, num_rows, num_cols, heights)
