@@ -1,6 +1,6 @@
 class Solution:
     """
-    THE PROBLEM: Find the length of longest strictly increasing subsequence
+    THE PROBLEM: Find the length of longest strictly increasing subsequence (Problem 300)
 
     PATTERN: Dynamic Programming + Binary Search (greedy)
 
