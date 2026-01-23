@@ -32,24 +32,38 @@ class Solution:
         if not root:
             return []
         
-        levels_grouped_by_depth = []
-        nodes_at_current_depth = [root]
+        levels_grouped_by_depth:list[list[int]] = []
+        nodes_at_current_depth:list[TreeNode] = [root]
 
         while nodes_at_current_depth:
-            values_at_current_depth = []
-            nodes_at_next_depth = []
+            values_at_current_depth:list[int] = []
+            nodes_at_next_depth:list[TreeNode] = []
 
-            for current_node in nodes_at_current_depth:
-                values_at_current_depth.append(current_node.val)
-
-                if current_node.left:
-                    nodes_at_next_depth.append(current_node.left)
-                
-                if current_node.right:
-                    nodes_at_next_depth.append(current_node.right)
-            
-            levels_grouped_by_depth.append(values_at_current_depth)
-            nodes_at_current_depth = nodes_at_next_depth
+            self._process_current_level(
+                levels_grouped_by_depth, 
+                nodes_at_current_depth, 
+                values_at_current_depth, 
+                nodes_at_next_depth
+            )
         return levels_grouped_by_depth
+
+    def _process_current_level(
+        self, 
+        levels_grouped_by_depth:list[list[int]], 
+        nodes_at_current_depth:list[TreeNode], 
+        values_at_current_depth:list[int], 
+        nodes_at_next_depth:list[TreeNode]
+    )-> None:
+        for current_node in nodes_at_current_depth:
+            values_at_current_depth.append(current_node.val)
+
+            if current_node.left:
+                nodes_at_next_depth.append(current_node.left)
+                
+            if current_node.right:
+                nodes_at_next_depth.append(current_node.right)
+            
+        levels_grouped_by_depth.append(values_at_current_depth)
+        nodes_at_current_depth = nodes_at_next_depth
 
         
