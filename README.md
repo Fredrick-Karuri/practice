@@ -1,6 +1,6 @@
 # Software Engineering Learning Portfolio
 
-A comprehensive monorepo documenting my 30-day interview preparation journey, featuring practical implementations, system design studies, and algorithmic problem-solving.
+A comprehensive monorepo documenting my journey, featuring practical implementations, system design studies, and algorithmic problem-solving.
 
 ## 📋 Repository Structure
 
@@ -18,7 +18,6 @@ learning-portfolio/
 
 This repository serves as:
 - **Learning Journal**: Documenting my software engineering learning journey
-- **Interview Preparation**: 30-day intensive prep covering system design, algorithms, and full-stack development
 - **Portfolio**: Demonstrating practical skills through real-world projects
 - **Reference Material**: Personal knowledge base for system design patterns and best practices
 
