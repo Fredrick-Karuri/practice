@@ -24,25 +24,23 @@ class Solution:
     SPACE: O(n)
     """
     def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode | None:
+        self.preorder_index = 0
         value_to_index_inorder = {val:idx for idx, val in enumerate(inorder)}
-        preorder_index = 0
 
-        def build_subtree(left_boundary, right_boundary):
-            nonlocal preorder_index
+        return self.build_subtree(0,len(inorder) - 1,preorder,value_to_index_inorder)
 
-            if left_boundary > right_boundary:
-                return None
-            
-            root_value = preorder[preorder_index]
-            root = TreeNode(root_value)
-            preorder_index += 1
+    def build_subtree(self, left_boundary: int, right_boundary: int, preorder: list[int], value_to_index_inorder: dict[int, int]) -> TreeNode | None:
 
-            root_position_in_inorder = value_to_index_inorder[root_value]
-
-            root.left = build_subtree(left_boundary,root_position_in_inorder - 1 )
-            root.right = build_subtree(root_position_in_inorder + 1, right_boundary)
-
-            return root
+        if left_boundary > right_boundary:
+            return None
         
-        return build_subtree(0,len(inorder) - 1)
-        
+        root_value = preorder[self.preorder_index]
+        root = TreeNode(root_value)
+        self.preorder_index += 1
+
+        root_position_in_inorder = value_to_index_inorder[root_value]
+
+        root.left = self.build_subtree(left_boundary, root_position_in_inorder - 1, preorder, value_to_index_inorder)
+        root.right = self.build_subtree(root_position_in_inorder + 1, right_boundary, preorder, value_to_index_inorder)
+
+        return root
