@@ -1,0 +1,63 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      react-state: ${{ steps.filter.outputs.react-state }}
+      document-mgmt: ${{ steps.filter.outputs.document-mgmt }}
+      url-shortener: ${{ steps.filter.outputs.url-shortener }}
+      adaptive-api: ${{ steps.filter.outputs.adaptive-api }}
+      social-media: ${{ steps.filter.outputs.social-media }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            react-state:
+              - 'projects/react-state-management/**'
+            document-mgmt:
+              - 'projects/document_management/**'
+            url-shortener:
+              - 'projects/url_shortener/**'
+            adaptive-api:
+              - 'projects/adaptive-assessment-api/**'
+            social-media:
+              - 'projects/social_media/**'
+
+  react-state:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.react-state == 'true'
+    uses: ./.github/workflows/react-state.yml
+    secrets: inherit
+
+  url-shortener:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.url-shortener == 'true'
+    uses: ./.github/workflows/url-shortener.yml
+    secrets: inherit
+
+  document-mgmt:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.document-mgmt == 'true'
+    uses: ./.github/workflows/document-mgmt.yml
+    secrets: inherit
+
+  adaptive-api:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.adaptive-api == 'true'
+    uses: ./.github/workflows/adaptive-api.yml
+    secrets: inherit
+
+  social-media:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.social-media == 'true'
+    uses: ./.github/workflows/social-media.yml
+    secrets: inherit

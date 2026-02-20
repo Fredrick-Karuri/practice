@@ -1,0 +1,48 @@
+name: Adaptive Assessment API
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/adaptive-assessment-api
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Build and test
+        run: mvn clean verify
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Build
+        run: mvn clean package -DskipTests
+        working-directory: projects/adaptive-assessment-api
+      
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@main
+        env:
+            RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        with:
+          service: adaptive-assessment-api
