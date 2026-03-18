@@ -1,4 +1,3 @@
-from typing import List
 
 
 class Solution:
@@ -25,12 +24,12 @@ class Solution:
     TIME: O(N^(T/M)) where N = candidates T = target, M = min candidate
     SPACE: O(T/M) for recursion depth
     """
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         result = []
         self.backtrack(0,[],target, result, candidates)
         return result
 
-    def backtrack(self, start:int, current:List[int], remaining:List[int], result:List[List[int]] ,candidates:List[int] ):
+    def backtrack(self, start:int, current:list[int], remaining:list[int], result:list[list[int]] ,candidates:list[int] ):
         if remaining == 0:
             result.append(current[:]) # found valid combination
             return
